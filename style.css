@@ -1,0 +1,20 @@
+body{
+    width: 60%;
+}
+
+section{
+    margin: auto;
+    display: grid;
+    width: 30%;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.bt1,.bt2,.bt3,.bt4,.bt5,.bt6,.bt7,.bt8,.bt9{
+    width: 80px;
+    height: 52px;
+    margin: auto;
+    border: 1px solid gray;
+    border-radius: 6px;
+    text-align: center;
+}
