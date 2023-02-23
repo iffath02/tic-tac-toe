@@ -1,10 +1,4 @@
-//choosing no of players through buttons
-// const onePlayer = document.querySelector('.one-player')
-// const twoPlayer = document.querySelector('.two-player')
-// const players = document.querySelector('.players')
 const info = document.querySelector('.info-message')
-// const header = document.querySelector('.choice')
-// const buttons = header.querySelectorAll('button')
 
     let player1 = {
         name: 'Iffath',
@@ -20,7 +14,7 @@ info.textContent = `${playerTurn.name}'s turn!`
 //create an array the has winning conditions and a gamestate
 
 let gameProgress = ["", "", "", "", "", "", "", "", ""]
-let gameOver = false
+
 let winningConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -56,27 +50,38 @@ function handleInput(cell,cellIndex){
 
 function validateInput(){
     let index =0
-    while(index<winningConditions.length){
-        let eachCondition = winningConditions[index]
+    let won = false
+    for(let i = 0; i <= 7; i++){
+        let eachCondition = winningConditions[i]
         let cell1 = gameProgress[eachCondition[0]]
         let cell2 = gameProgress[eachCondition[1]]
         let cell3 = gameProgress[eachCondition[2]]
         if(cell1 =='' || cell2 == '' || cell3 ==''){
-            if(index == winningConditions.length-1){
-                currentPlayerTurn()
+            continue
             }
-        }
-        else if(cell1 == cell2 && cell2 == cell3){
-            endResult('won')
+            if(cell1 == cell2 && cell2 == cell3){
+            won = true;
             break
         }
-        else if(!gameProgress.includes('')){
-            endResult('draw')
-            break
-        }
-      index++
     }
-}
+        if(won){
+            info.textContent = `${playerTurn.name} is the winner!`
+            btn.forEach(gridButton => {
+                gridButton.disabled = true
+            });
+            reset.disabled = false
+            return
+        }
+        if(!gameProgress.includes('')){
+            btn.forEach(gridButton => {
+                gridButton.disabled = true
+            });
+            info.textContent = `Its a draw`
+            reset.disabled = false
+            return
+        }
+        currentPlayerTurn()
+    }
 
 function currentPlayerTurn(){
     if( playerTurn.symbol == 'X'){
@@ -88,15 +93,20 @@ function currentPlayerTurn(){
     return playerTurn
 }
 
-function endResult(outcome){
-    if(outcome == 'won'){
-        info.textContent = `${playerTurn.name} is the winner!`
-    }
-    else{
-        info.textContent = `Its a draw`
-    }
+function resetGame(){
+    reset.disabled = true
+    playerTurn = player1
+    gameProgress = ["", "", "", "", "", "", "", "", ""];
+    btn.forEach(gridButton => {
+        gridButton.disabled = false
+        gridButton.textContent = ''
+    });
+    info.textContent = `${playerTurn.name}'s turn`
 }
 
+let reset = document.querySelector('.reset-btn')
+reset.addEventListener('click', resetGame);
+reset.disabled = true
 
 //get the button clicked and display vs option
 // function noOfPlayers(event){

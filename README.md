@@ -16,7 +16,6 @@
 -Use a array to validate the game
 
 # Page Layout
--Buttons to enter names for players
 -Reset button
 -Info message
 
