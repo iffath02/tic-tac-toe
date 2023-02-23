@@ -54,10 +54,10 @@ gridCell.forEach(cell => {
 function startGame(){
     playerInfo.textContent = `${playerTurn.name}'s turn!`
     // playAgain.style.visibility = 'visible'
-    // reset.style.visibility = 'visible'
+    reset.style.visibility = 'visible'
     play.style.visibility = 'hidden'
     gameTracker.style.visibility = 'visible'
-    // reset.removeEventListener('click', resetGame);
+    //reset.removeEventListener('click', resetGame);
     // playAgain.removeEventListener('click',pAgain)
     grid.classList.remove('disable-grid')
 }
@@ -101,7 +101,7 @@ function validateInput(){
             reset.style.visibility = 'visible'
             reset.addEventListener('click', resetGame);
             playAgain.addEventListener('click',pAgain)
-            if(playerTurn.name === 'Iffath'){
+            if(playerTurn.name === 'Player X'){
                 player1Wins++
                 player1Count.textContent = player1Wins
             }
@@ -142,7 +142,8 @@ function pAgain(){
     playerTurn = player1
     playerTurnInfo.textContent = `${playerTurn.name}'s turn`
     playAgain.removeEventListener('click',pAgain)
-    reset.removeEventListener('click',resetGame)
+    playAgain.style.visibility = 'hidden'
+    //reset.removeEventListener('click',resetGame)
     gridCell.forEach(cell => {
         cell.addEventListener('click',handleCellClicked)
         cell.textContent = ''
@@ -165,8 +166,8 @@ function resetGame(){
         cell.addEventListener('click',handleCellClicked)
         cell.textContent = ''
     });
+    grid.classList.add('disable-grid')
     //playerInfo.textContent = `${playerTurn.name}'s turn`
-
 }
 
 
