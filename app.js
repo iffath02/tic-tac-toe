@@ -1,19 +1,27 @@
 //choosing no of players through buttons
-const onePlayer = document.querySelector('.one-player')
-const twoPlayer = document.querySelector('.two-player')
-const players = document.querySelector('.players')
+// const onePlayer = document.querySelector('.one-player')
+// const twoPlayer = document.querySelector('.two-player')
+// const players = document.querySelector('.players')
 const info = document.querySelector('.info-message')
-const header = document.querySelector('.choice')
-const buttons = header.querySelectorAll('button')
+// const header = document.querySelector('.choice')
+// const buttons = header.querySelectorAll('button')
 
-let name1 = 'iffath'
-let name2 = 'dt'
-let currentPlayer = 'iffath'
+    let player1 = {
+        name: 'Iffath',
+        symbol: 'X'
+    }
+    let player2 = {
+        name: 'Dt',
+        symbol: 'O'
+    }
 
+let playerTurn = player1
+info.textContent = `${playerTurn.name}'s turn!`
 //create an array the has winning conditions and a gamestate
+
 let gameProgress = ["", "", "", "", "", "", "", "", ""]
-gameOver = false
-const winningConditions = [
+let gameOver = false
+let winningConditions = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -22,8 +30,7 @@ const winningConditions = [
     [2, 5, 8],
     [0, 4, 8],
     [2, 4, 6]
-];
-
+]
 
 const grid = document.querySelector('.grid')
 const btn = grid.querySelectorAll('button')
@@ -36,18 +43,59 @@ function handleCellClicked(event){
     const cell = event.target
     console.log(cell)
     const cellIndex = cell.dataset.num
-    console.log(cell.dataset.num)
-    console.log(gameProgress[cellIndex])
     cell.disabled = true
     handleInput(cell,cellIndex)
+    validateInput()
 }
 
 function handleInput(cell,cellIndex){
-    gameProgress[cellIndex] = currentPlayer
-    cell.textContent = currentPlayer
+    gameProgress[cellIndex] = playerTurn.symbol
+    cell.textContent = playerTurn.symbol
     console.log(gameProgress)
 }
 
+function validateInput(){
+    let index =0
+    while(index<winningConditions.length){
+        let eachCondition = winningConditions[index]
+        let cell1 = gameProgress[eachCondition[0]]
+        let cell2 = gameProgress[eachCondition[1]]
+        let cell3 = gameProgress[eachCondition[2]]
+        if(cell1 =='' || cell2 == '' || cell3 ==''){
+            if(index == winningConditions.length-1){
+                currentPlayerTurn()
+            }
+        }
+        else if(cell1 == cell2 && cell2 == cell3){
+            endResult('won')
+            break
+        }
+        else if(!gameProgress.includes('')){
+            endResult('draw')
+            break
+        }
+      index++
+    }
+}
+
+function currentPlayerTurn(){
+    if( playerTurn.symbol == 'X'){
+        playerTurn = player2
+    }else {
+        playerTurn = player1
+    }
+    info.textContent = `${playerTurn.name}'s turn`
+    return playerTurn
+}
+
+function endResult(outcome){
+    if(outcome == 'won'){
+        info.textContent = `${playerTurn.name} is the winner!`
+    }
+    else{
+        info.textContent = `Its a draw`
+    }
+}
 
 
 //get the button clicked and display vs option
@@ -109,3 +157,29 @@ function handleInput(cell,cellIndex){
 //     info.textContent = `It is ${name1}'s turn`
 // }
 
+
+
+
+//get the button clicked and display vs option
+// function noOfPlayers(event){
+//     buttons.forEach(button => {
+//         button.disabled = true
+//     });
+//     choice = event.target
+//     if(choice.className === 'one-player'){
+//         gameComponents.player1.name = prompt('Enter Your Name')
+//         gameComponents.player2.name = 'Computer'
+//         players.textContent = `${gameComponents.player1.name} vs ${gameComponents.player2.name}`
+//         return gameComponents.player1.name, gameComponents.player2.name
+//     }
+//     else{
+//         gameComponents.player1.name = prompt('Player 1: Enter your Name')
+//         gameComponents.player2.name = prompt('Player 2: Enter your Name') 
+//         players.textContent = `${gameComponents.player1.name} vs ${gameComponents.player2.name}`
+//         return gameComponents.player1.name, gameComponents.player2.name
+//     }
+// }
+
+// buttons.forEach(button => {
+//     button.addEventListener('click',noOfPlayers)
+// });
