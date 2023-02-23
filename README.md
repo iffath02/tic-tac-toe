@@ -5,6 +5,28 @@ Game link: https://iffath02.github.io/tic-tac-toe/
 - CSS
 - JavaScript
 
+# Initial Thought Process
+- Create a game with two game modes - one-player & two-player
+- One player would be player vs computer
+- Two player would be between two players
+- Ask user to enter name and use this to display turns
+- Have a scorecard
+- Have three buttons - Play, Play Again and Quit
+- Play button starts the game
+- Play Again retains scores
+- Quit resets the entire state and returns to main screen
+
+# Final Model
+- Create a game with two game modes - one-player & two-player 
+- One player would be player vs computer
+- Two player would be between two players
+- Ask user to enter name and use this to display turns 
+- Have a scorecard :white_check_mark:
+- Have three buttons - Play, Play Again and Quit :white_check_mark:
+- Play button starts the game :white_check_mark:
+- Play Again retains scores :white_check_mark:
+- Quit resets the entire state and returns to main screen :white_check_mark:
+
 # Pseudocode
 # Players
 - Choose to play either a one player game or a two player game
