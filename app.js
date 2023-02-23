@@ -1,4 +1,186 @@
-const info = document.querySelector('.info-message')
+const playerInfo = document.querySelector('.player-turn')
+const player1Count = document.querySelector('.player1-count')
+const player2Count = document.querySelector('.player2-count')
+const drawCount = document.querySelector('.draw-count')
+const reset = document.querySelector('.quit')
+reset.addEventListener('click', resetGame);
+const play = document.querySelector('.play')
+play.addEventListener('click',startGame)
+const playAgain = document.querySelector('.play-again')
+playAgain.addEventListener('click',pAgain)
+
+playAgain.style.visibility = 'hidden'
+reset.style.visibility = 'hidden'
+const gameTracker = document.querySelector('.game-tracker')
+gameTracker.style.visibility = 'hidden'
+
+const playerTurnInfo = document.querySelector('.player-turn')
+
+    let player1 = {
+        name: 'Player X',
+        symbol: 'X'
+    }
+    let player2 = {
+        name: 'Player O',
+        symbol: 'O'
+    }
+
+let player1Wins = 0, player2Wins = 0, draw = 0    
+let playerTurn = player1
+//playerInfo.textContent = `${playerTurn.name}'s turn!`
+
+let gameProgress = ["", "", "", "", "", "", "", "", ""]
+
+let winningConditions = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+]
+
+const grid = document.querySelector('.grid')
+const gridCell = grid.querySelectorAll('.cell')
+
+grid.classList.add('disable-grid')
+
+gridCell.forEach(cell => {
+    cell.addEventListener('click',handleCellClicked)
+});
+
+function startGame(){
+    playerInfo.textContent = `${playerTurn.name}'s turn!`
+    // playAgain.style.visibility = 'visible'
+    // reset.style.visibility = 'visible'
+    play.style.visibility = 'hidden'
+    gameTracker.style.visibility = 'visible'
+    // reset.removeEventListener('click', resetGame);
+    // playAgain.removeEventListener('click',pAgain)
+    grid.classList.remove('disable-grid')
+}
+
+function handleCellClicked(event){
+    const cell = event.target
+    console.log(cell)
+    const cellIndex = cell.dataset.num
+    cell.removeEventListener('click',handleCellClicked)
+    handleInput(cell,cellIndex)
+    validateInput()
+}
+
+function handleInput(cell,cellIndex){
+    gameProgress[cellIndex] = playerTurn.symbol
+    cell.textContent = playerTurn.symbol
+    console.log(gameProgress)
+}
+
+function validateInput(){
+    let playerWins = false
+    for(let index = 0; index <= 7; index++){
+        let eachCondition = winningConditions[index]
+        let cell1 = gameProgress[eachCondition[0]]
+        let cell2 = gameProgress[eachCondition[1]]
+        let cell3 = gameProgress[eachCondition[2]]
+        if(cell1 =='' || cell2 == '' || cell3 ==''){
+            continue
+            }
+            if(cell1 == cell2 && cell2 == cell3){
+            playerWins = true;
+            break
+        }
+    }
+        if(playerWins){
+            playerInfo.textContent = `${playerTurn.name} is the winner!`
+            gridCell.forEach(cell => {
+                cell.removeEventListener('click',handleCellClicked)
+            });
+            playAgain.style.visibility = 'visible'
+            reset.style.visibility = 'visible'
+            reset.addEventListener('click', resetGame);
+            playAgain.addEventListener('click',pAgain)
+            if(playerTurn.name === 'Iffath'){
+                player1Wins++
+                player1Count.textContent = player1Wins
+            }
+            else{
+                player2Wins++
+                player2Count.textContent = player2Wins
+            }
+            return
+        }
+        if(!gameProgress.includes('')){
+            gridCell.forEach(cell => {
+                cell.removeEventListener('click',handleCellClicked)
+            });
+            playerInfo.textContent = `Its a draw`
+            playAgain.style.visibility = 'visible'
+            reset.style.visibility = 'visible'
+            reset.addEventListener('click', resetGame);
+            playAgain.addEventListener('click',pAgain)
+            draw++
+            drawCount.textContent = draw
+            return
+        }
+        currentPlayerTurn()
+    }
+
+function currentPlayerTurn(){
+    if( playerTurn.symbol == 'X'){
+        playerTurn = player2
+    }else {
+        playerTurn = player1
+    }
+    playerInfo.textContent = `${playerTurn.name}'s turn`
+    return playerTurn
+}
+
+function pAgain(){
+    gameProgress = ["", "", "", "", "", "", "", "", ""];
+    playerTurn = player1
+    playerTurnInfo.textContent = `${playerTurn.name}'s turn`
+    playAgain.removeEventListener('click',pAgain)
+    reset.removeEventListener('click',resetGame)
+    gridCell.forEach(cell => {
+        cell.addEventListener('click',handleCellClicked)
+        cell.textContent = ''
+    });
+}
+
+function resetGame(){
+    playAgain.style.visibility = 'hidden'
+    reset.style.visibility = 'hidden'
+    play.style.visibility = 'visible'
+    player1Wins = 0, player2Wins = 0, draw = 0
+    player1Count.textContent = player1Wins
+    player2Count.textContent = player2Wins
+    drawCount.textContent = draw
+    gameTracker.style.visibility = 'hidden' 
+    //playerTurn = player1
+    gameProgress = ["", "", "", "", "", "", "", "", ""];
+    playerTurnInfo.textContent = ''
+    gridCell.forEach(cell => {
+        cell.addEventListener('click',handleCellClicked)
+        cell.textContent = ''
+    });
+    //playerInfo.textContent = `${playerTurn.name}'s turn`
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*const info = document.querySelector('.info-message')
 
     let player1 = {
         name: 'Iffath',
@@ -192,4 +374,4 @@ reset.disabled = true
 
 // buttons.forEach(button => {
 //     button.addEventListener('click',noOfPlayers)
-// });
+// });*/
