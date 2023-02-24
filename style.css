@@ -32,7 +32,6 @@ main{
 }
 
 .play{
-    
     width: 200px;
     height: 70px;
     border-radius: 12px;
@@ -44,7 +43,6 @@ main{
 }
 
 .play-again{
-    
     width: 200px;
     height: 70px;
     border-radius: 12px;
@@ -57,7 +55,6 @@ main{
 }
 
 .quit{
-    
     width: 200px;
     height: 70px;
     border-radius: 12px;
