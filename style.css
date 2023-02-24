@@ -2,30 +2,37 @@
     box-sizing: border-box;
 }
 html{
-    background-color: #e1fbdc;
+   
 }
 
 body{
     text-align: center;
-    margin: 0;
+    margin: 0 auto;
+    color: #ffc40c;
+    background-color: #3b3c36;
 }
 
 header h1{
    font-size: 40px;
+   margin: 50px auto;
 }
 
 main{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-content: center;
+    width: 1000px;
+    margin: 100px auto;
+    gap: 100px;
 }
 .options{
     display: grid;
     margin: auto;
+    gap: 50px;
 }
 
 .play{
-    margin-top: 70px;
+    
     width: 200px;
     height: 70px;
     border-radius: 12px;
@@ -37,7 +44,7 @@ main{
 }
 
 .play-again{
-    margin-top: 70px;
+    
     width: 200px;
     height: 70px;
     border-radius: 12px;
@@ -50,7 +57,7 @@ main{
 }
 
 .quit{
-    margin-top: 70px;
+    
     width: 200px;
     height: 70px;
     border-radius: 12px;
@@ -64,7 +71,7 @@ main{
 
 .grid{
     display: grid;
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: 1fr 1fr 1fr;
     align-content: center;
 }
 
@@ -72,10 +79,12 @@ main{
     display: flex;
     width: 150px;
     height: 170px;
-    font-size: 50px;
+    font-size: 80px;
     border: 2px solid black;
-    align-content: center;
+    justify-content: center;
     align-items: center;
+    background-color: #ffcc99;
+    color: black;
 }
 
 .info-message{
@@ -84,16 +93,19 @@ main{
 }
 
 .player-info{
-    margin-left: 100px;
-    margin-top: 200px;
+    /* margin-left: 100px; */
+    margin: 50% auto;
 }
 
 .game-tracker{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     padding-bottom: 8px;
-    margin-left: 50px;
+    /* margin-left: 50px; */
     margin-right: 20px;
+    gap: 20px;
+    justify-self: start;
+    width: 350px;
 }
 
 .disable-grid{
