@@ -11,9 +11,10 @@ playAgain.addEventListener('click',pAgain)
 
 playAgain.style.visibility = 'hidden'
 reset.style.visibility = 'hidden'
-const gameTracker = document.querySelector('.game-tracker')
+const gameTracker = document.querySelector('.player-info')
 gameTracker.style.visibility = 'hidden'
 
+const gameOptions = document.querySelector('.game-options')
 const playerTurnInfo = document.querySelector('.player-turn')
 
     let player1 = {
@@ -60,6 +61,7 @@ function startGame(){
     //reset.removeEventListener('click', resetGame);
     // playAgain.removeEventListener('click',pAgain)
     grid.classList.remove('disable-grid')
+    gameOptions.textContent = 'Click on quit to stop playing'
 }
 
 function handleCellClicked(event){
@@ -67,6 +69,7 @@ function handleCellClicked(event){
     console.log(cell)
     const cellIndex = cell.dataset.num
     cell.removeEventListener('click',handleCellClicked)
+    cell.style.backgroundColor = '#d3d3d3'
     handleInput(cell,cellIndex)
     validateInput()
 }
@@ -96,7 +99,9 @@ function validateInput(){
             playerInfo.textContent = `${playerTurn.name} is the winner!`
             gridCell.forEach(cell => {
                 cell.removeEventListener('click',handleCellClicked)
+                cell.style.backgroundColor = '#d3d3d3'
             });
+            gameOptions.textContent = 'Click on PLAY AGAIN to continue or QUIT to end game'
             playAgain.style.visibility = 'visible'
             reset.style.visibility = 'visible'
             reset.addEventListener('click', resetGame);
@@ -147,7 +152,9 @@ function pAgain(){
     gridCell.forEach(cell => {
         cell.addEventListener('click',handleCellClicked)
         cell.textContent = ''
+        cell.style.backgroundColor = '#ffcc99'
     });
+    gameOptions.textContent = 'Click on QUIT to stop playing'
 }
 
 function resetGame(){
@@ -165,8 +172,10 @@ function resetGame(){
     gridCell.forEach(cell => {
         cell.addEventListener('click',handleCellClicked)
         cell.textContent = ''
+        cell.style.backgroundColor = '#ffcc99'
     });
     grid.classList.add('disable-grid')
+    gameOptions.textContent = 'Click on PLAY to start the game'
     //playerInfo.textContent = `${playerTurn.name}'s turn`
 }
 

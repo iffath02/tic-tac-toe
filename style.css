@@ -14,7 +14,7 @@ body{
 
 header h1{
    font-size: 40px;
-   margin: 50px auto;
+   margin: 40px auto;
 }
 
 main{
@@ -91,7 +91,7 @@ main{
 
 .player-info{
     /* margin-left: 100px; */
-    margin: 50% auto;
+    margin: 35% auto;
 }
 
 .game-tracker{
